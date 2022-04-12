@@ -50,6 +50,5 @@
 #define PERMISSIVE_HOLD
 
 /* combo  */
-#define COMBO_COUNT 5
 #define COMBO_ONLY_FROM_LAYER 0
 
