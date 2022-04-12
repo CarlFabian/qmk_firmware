@@ -18,36 +18,59 @@
 #include "keymap_swedish.h"
 #include "features/caps_word.h"
 
-// Layers
-#define _COLEMAK 0
-#define _QWERTY 1
-#define _NAV 2
-#define _MOUSE 3
-#define _BUTTON 4
-#define _MEDIA 5
-#define _NUM 6
-#define _SYM 7
-#define _FUN 8
-
+ // Layers
+enum layers {
+    _COLEMAK,
+    _QWERTY,
+    _NAV,
+    _MOUSE,
+    _BUTTON,
+    _MEDIA,
+    _NUM,
+    _SYM,
+    _FUN
+};
 
 // Combos
+enum combo_events {
+    ESC_COMBO,
+    DEL_COMBO,
+    SWE_COMBO1,
+    SWE_COMBO2,
+    SWE_COMBO3,
+    CAPS_COMBO,
+    COMBO_LENGTH
+};
+uint16_t COMBO_LEN = COMBO_LENGTH;
+
 const uint16_t PROGMEM esc_combo[] = { KC_Q, KC_W, COMBO_END };
 const uint16_t PROGMEM del_combo[] = { KC_Y, KC_NUHS, COMBO_END };
 const uint16_t PROGMEM swe_combo1[] = { KC_W, KC_F, COMBO_END };
 const uint16_t PROGMEM swe_combo2[] = { KC_F, KC_P, COMBO_END };
 const uint16_t PROGMEM swe_combo3[] = { KC_U, KC_Y, COMBO_END };
-
 const uint16_t PROGMEM caps_combo[] = { KC_C, KC_COMM, COMBO_END };
 
-combo_t key_combos[COMBO_COUNT] = {
+combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
     COMBO(del_combo, KC_DEL),
     COMBO(swe_combo1, KC_LBRC),
     COMBO(swe_combo2, KC_QUOT),
     COMBO(swe_combo3, KC_SCLN),
+    [CAPS_COMBO] = COMBO_ACTION(caps_combo)
 };
 
 
+void process_combo_event(uint16_t combo_index, bool pressed) {
+    switch (combo_index) {
+    case CAPS_COMBO:
+        if (pressed) {
+            caps_word_set(true);  // Activate Caps Word!
+        }
+        break;
+
+        // Other combos...
+    }
+}
 
 // Caps word
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
@@ -62,6 +85,9 @@ bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
     case KC_A ... KC_Z:
+    case KC_LBRC:
+    case KC_QUOT:
+    case KC_SCLN:
     case KC_SLSH:
         add_weak_mods(MOD_BIT(KC_LSFT));  // Apply shift to the next key.
         return true;
@@ -78,7 +104,7 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 
- // Tapping term for individual keys
+// Tapping term for individual keys
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
     case  LGUI_T(KC_A):
@@ -86,13 +112,13 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
     case LGUI_T(KC_O):
         return TAPPING_TERM + 200;
     case LCTL_T(KC_S):
-        return TAPPING_TERM + 200;
+        return TAPPING_TERM + 50;
     case LCTL_T(KC_E):
-        return TAPPING_TERM + 200;
+        return TAPPING_TERM + 50;
     case LALT_T(KC_R):
-        return TAPPING_TERM + 200;
+        return TAPPING_TERM + 50;
     case LALT_T(KC_I):
-        return TAPPING_TERM + 200;
+        return TAPPING_TERM + 50;
     default:
         return TAPPING_TERM;
     }
@@ -115,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      //,-----------------------------------------------------.                  ,-----------------------------------------------------.
       KC_Q,    KC_W,    KC_F,       KC_P,      KC_B,                               KC_J,   KC_L,      KC_U,    KC_Y,    KC_NUHS,
      //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-      LGUI_T(KC_A),LALT_T(KC_R),LCTL_T(KC_S),LSFT_T(KC_T), KC_G,                   KC_M,   RSFT_T(KC_N),LCTL_T(KC_E),LALT_T(KC_I),LGUI_T(KC_O),
+      LGUI_T(KC_A),LALT_T(KC_R),LCTL_T(KC_S),LSFT_T(KC_T), KC_G,                   KC_M,   LSFT_T(KC_N),LCTL_T(KC_E),LALT_T(KC_I),LGUI_T(KC_O),
      //,-----------------------------------------------------.                  ,-----------------------------------------------------.
        LT(_BUTTON, KC_Z)  ,KC_X, KC_C, KC_D, LT(_MEDIA, KC_V),                    LT(_FUN, KC_K), KC_H,  KC_COMM, ALGR_T(KC_DOT),LT(_BUTTON,KC_SLSH),
      //,-----------------------------------------------------.                  ,-----------------------------------------------------.
@@ -145,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //,-----------------------------------------------------.              ,-----------------------------------------------------.
              U_NA,     U_NA,     U_NA,    U_NA,    U_NA,                          KC_INS,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,
          //,-----------------------------------------------------.              ,-----------------------------------------------------.
-                                               U_NA, U_NA,                        KC_ENT,  KC_BSPC           
+                                               U_NA, U_NA,                        KC_ENT,  KC_BSPC
          //                          ----------------------------.              ,--------------------------------
                                   ),
 
@@ -158,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
             U_NA,     U_NA,     U_NA,    U_NA,    U_NA,                            KC_BTN3,    KC_WH_L,   KC_WH_D,     KC_WH_U,   KC_WH_R,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                                                 U_NA, U_NA,                       KC_BTN1,  KC_BTN2         
+                                                 U_NA, U_NA,                       KC_BTN1,  KC_BTN2
         //                          ----------------------------.               ,--------------------------------
                                  ),
 
@@ -170,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
             U_NA,   U_CUT,  U_COPY, U_PSTE, U_UNDO,                                U_UNDO,   U_PSTE,  U_COPY,   U_CUT, U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                                              KC_BTN2 ,  KC_BTN1,                  KC_BTN1,  KC_BTN2       
+                                              KC_BTN2 ,  KC_BTN1,                  KC_BTN1,  KC_BTN2
         //                          ----------------------------.               ,--------------------------------
                                  ),
 
@@ -182,19 +208,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                  U_NA,     U_NA,     U_NA,    U_NA,    U_NA,                       KC_MUTE,    U_NA,   U_NA,     U_NA,   U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                                             KC_MPLY ,  KC_MSTP,                   KC_MSTP, KC_MPLY         
+                                             KC_MPLY ,  KC_MSTP,                   KC_MSTP, KC_MPLY
         //                          ----------------------------.               ,--------------------------------
                                  ),
 
     [_NUM] = LAYOUT(
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                 U_NA ,  KC_7   ,   KC_8 ,   KC_9,    SE_EQL,                      U_NA,   SE_LCBR,  SE_RCBR,   SE_LABK, U_NA,
+                 U_NA ,  KC_7   ,   KC_8 ,   KC_9,    U_NA,                      U_NA,   SE_LCBR,  SE_RCBR,   U_NA, U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                 KC_COMM, KC_4,     KC_5,    KC_6,  SE_PLUS,                       U_NA,  SE_LPRN, SE_RPRN, SE_RABK, U_NA,
+                 KC_COMM, KC_4,     KC_5,    KC_6,  SE_PLUS,                       SE_EQL,  SE_LPRN, SE_RPRN, SE_LABK, SE_RABK,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                  U_NA   , KC_1,    KC_2,     KC_3, SE_MINS,                        U_NA ,    SE_LBRC,   SE_RBRC,     SE_PIPE,   U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                                           KC_0   , KC_DOT,                        U_NA, U_NA             
+                                           KC_0   , KC_DOT,                        U_NA, U_NA
         //                          ----------------------------.               ,--------------------------------
                                      ),
 
@@ -206,7 +232,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                  SE_PND, SE_EURO,  SE_DLR, SE_AT,  SE_QUES,                        U_NA,    U_NA,   U_NA,     U_NA,   U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                                         SE_SECT   , SE_DIAE,                      U_NA, U_NA             
+                                         SE_SECT   , SE_DIAE,                      U_NA, U_NA
         //                          ----------------------------.               ,--------------------------------
                                          ),
 
@@ -218,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                      KC_F10, KC_F1, KC_F2, KC_F3, KC_PAUS,                         U_NA, U_NA, U_NA, U_NA, U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-                                             KC_SPC, KC_TAB,                       U_NA, U_NA                    
+                                             KC_SPC, KC_TAB,                       U_NA, U_NA
         //                          ----------------------------.               ,--------------------------------
      )
 
