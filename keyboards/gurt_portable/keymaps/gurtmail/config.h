@@ -2,7 +2,7 @@
 #define TAPPING_TERM 200
 #define TAPPING_TERM_PER_KEY
 
-// Prevent normal rollover on alphas from accidentally triggering mods.
+ // Prevent normal rollover on alphas from accidentally triggering mods.
 #define IGNORE_MOD_TAP_INTERRUPT
 
 /* prevent stuck modifiers */
@@ -35,4 +35,5 @@
 #define PERMISSIVE_HOLD
 
 /* combo  */
-//#define COMBO_ONLY_FROM_LAYER 0
+#define COMBO_ONLY_FROM_LAYER 0
+

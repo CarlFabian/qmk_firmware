@@ -41,8 +41,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT Chonky_Bois
 #define DESCRIPTION A custom chonky keyboard
 
-/* mouse settings */
-#define MK_KINETIC_SPEED
 
 /* key matrix size */
 //according to crkbd rows are doubled ?
