@@ -4,7 +4,6 @@
 
  // Layers
 enum layers {
-    _COLEMAK,
     _QWERTY,
     _NAV,
     _MOUSE,
@@ -47,31 +46,31 @@ enum combo_events {
     CAPS_COMBO,
     COMBO_LENGTH
 };
+
 uint16_t COMBO_LEN = COMBO_LENGTH;
 
 //Function combos
 const uint16_t PROGMEM esc_combo[] = { SE_Q, SE_W, COMBO_END }; // ESC
-const uint16_t PROGMEM del_combo[] = { SE_Y, SE_QUOT, COMBO_END };// DEL
+const uint16_t PROGMEM del_combo[] = { SE_O, SE_P, COMBO_END };// DEL
 const uint16_t PROGMEM caps_combo[] = { SE_C, SE_COMM, COMBO_END };// CAPSWORD
 
 //Symbol combos
-const uint16_t PROGMEM lprn_combo[] = { LSFT_T(SE_T), SE_P, COMBO_END };// (
-const uint16_t PROGMEM rprn_combo[] = { LSFT_T(SE_N), SE_L, COMBO_END };// )
-const uint16_t PROGMEM lcbr_combo[] = { LCTL_T(SE_S), SE_F, COMBO_END };// {
-const uint16_t PROGMEM rcbr_combo[] = { LCTL_T(SE_E), SE_U, COMBO_END };// }
-const uint16_t PROGMEM lbrc_combo[] = { LALT_T(SE_R), SE_W, COMBO_END };// [
-const uint16_t PROGMEM rbrc_combo[] = { LALT_T(SE_I), SE_Y, COMBO_END };// ]
-const uint16_t PROGMEM labk_combo[] = { SE_G, SE_B, COMBO_END };// <
-const uint16_t PROGMEM rabk_combo[] = { SE_M, SE_J, COMBO_END };// >
-const uint16_t PROGMEM bsls_combo[] = { LSFT_T(SE_T), SE_F, COMBO_END };// backslash
-const uint16_t PROGMEM slsh_combo[] = { LSFT_T(SE_N), SE_U, COMBO_END };// /
-const uint16_t PROGMEM pipe_combo[] = { SE_G, SE_M, COMBO_END};// |
+const uint16_t PROGMEM lprn_combo[] = { LSFT_T(SE_F), SE_R, COMBO_END };// (
+const uint16_t PROGMEM rprn_combo[] = { LSFT_T(SE_J), SE_U, COMBO_END };// )
+const uint16_t PROGMEM lcbr_combo[] = { LCTL_T(SE_D), SE_E, COMBO_END };// {
+const uint16_t PROGMEM rcbr_combo[] = { LCTL_T(SE_K), SE_I, COMBO_END };// }
+const uint16_t PROGMEM lbrc_combo[] = { LALT_T(SE_S), SE_W, COMBO_END };// [
+const uint16_t PROGMEM rbrc_combo[] = { LALT_T(SE_L), SE_O, COMBO_END };// ]
+const uint16_t PROGMEM labk_combo[] = { SE_G, SE_T, COMBO_END };// <
+const uint16_t PROGMEM rabk_combo[] = { SE_H, SE_Y, COMBO_END };// >
+const uint16_t PROGMEM bsls_combo[] = { LSFT_T(SE_F), SE_E, COMBO_END };// backslash
+const uint16_t PROGMEM slsh_combo[] = { LSFT_T(SE_J), SE_I, COMBO_END };// /
+const uint16_t PROGMEM pipe_combo[] = { SE_G, SE_H, COMBO_END };// |
 
 //Swedish letter combos
-const uint16_t PROGMEM swe_combo1[] = { SE_W, SE_F, COMBO_END }; // Å
-const uint16_t PROGMEM swe_combo2[] = { SE_F, SE_P, COMBO_END }; // Ä
-const uint16_t PROGMEM swe_combo3[] = { SE_U, SE_Y, COMBO_END }; // Ö
-
+const uint16_t PROGMEM swe_combo1[] = { SE_W, SE_E, COMBO_END }; // Å
+const uint16_t PROGMEM swe_combo2[] = { SE_E, SE_R, COMBO_END }; // Ä
+const uint16_t PROGMEM swe_combo3[] = { SE_U, SE_I, COMBO_END }; // Ö
 
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
@@ -93,27 +92,12 @@ combo_t key_combos[] = {
     [CAPS_COMBO] = COMBO_ACTION(caps_combo)
 };
 
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
- [_COLEMAK] = LAYOUT(
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-          SE_Q,    SE_W,    SE_F,       SE_P,      SE_B,                             SE_J,   SE_L,      SE_U,    SE_Y,    SE_QUOT,
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-     LGUI_T(SE_A),LALT_T(SE_R),LCTL_T(SE_S),LSFT_T(SE_T), SE_G,                 SE_M,   LSFT_T(SE_N),LCTL_T(SE_E),LALT_T(SE_I),LGUI_T(SE_O),
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-       LT(_BUTTON, SE_Z)  ,SE_X, SE_C, LT(_BRACKETS, SE_D), LT(_MEDIA, SE_V),      LT(_FUN, SE_K), SE_H,  SE_COMM, ALGR_T(SE_DOT),LT(_BUTTON,SE_MINS),
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-                           LT(_NAV, KC_SPC), LT(_MOUSE, KC_TAB),                 LT(_SYM, KC_ENT),  LT(_NUM, KC_BSPC)
-     //                          ----------------------------.                  ,--------------------------------
-                              ),
-
     [_QWERTY] = LAYOUT(
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                 SE_Q,    SE_W,    SE_E,    SE_R,    SE_T,                               SE_Y,    SE_U,    SE_I,  SE_O,  SE_P,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-        LGUI_T(SE_A),LALT_T(SE_S),LCTL_T(SE_D),LSFT_T(SE_F),SE_G,                SE_H, RSFT_T(SE_J),LCTL_T(SE_K),LALT_T(SE_L),LGUI_T(SE_QUOT),
+        LGUI_T(SE_A),LALT_T(SE_S),LCTL_T(SE_D),LSFT_T(SE_F),SE_G,                SE_H, LSFT_T(SE_J),LCTL_T(SE_K),LALT_T(SE_L),LGUI_T(SE_QUOT),
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
               LT(_BUTTON, SE_Z), ALGR_T(SE_X), KC_C, KC_V, LT(_MEDIA, SE_B),                       LT(_FUN, SE_N), SE_M, SE_COMM, ALGR_T(SE_DOT), LT(_BUTTON,SE_MINS),
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
@@ -125,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //,-----------------------------------------------------.              ,-----------------------------------------------------.
               U_NA,     U_NA,    U_NA,    U_NA,    U_NA,                          U_UNDO,   U_PSTE,  U_COPY,   U_CUT, U_REDO,
          //,-----------------------------------------------------.              ,-----------------------------------------------------.
-              KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  U_NA,                           U_NA , KC_LEFT , KC_DOWN, KC_UP, KC_RGHT,
+              KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT,  U_NA,                           KC_LEFT , KC_DOWN, KC_UP, KC_RGHT, U_NA ,
          //,-----------------------------------------------------.              ,-----------------------------------------------------.
              U_NA,     U_NA,     U_NA,    U_NA,    U_NA,                          KC_INS,   KC_HOME, KC_PGDN, KC_PGUP, KC_END,
          //,-----------------------------------------------------.              ,-----------------------------------------------------.
@@ -138,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                 U_NA,     U_NA,    U_NA,    U_NA,    U_NA,                        U_UNDO,   U_PSTE,  U_COPY,   U_CUT, U_REDO,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-             KC_ACL0, KC_LALT, KC_LCTL, KC_LSFT,  KC_BTN3,                        U_NA ,KC_MS_L,   KC_MS_D,     KC_MS_U,   KC_MS_R,
+             KC_ACL0, KC_LALT, KC_LCTL, KC_LSFT,  KC_BTN3,                        KC_MS_L,   KC_MS_D,     KC_MS_U,   KC_MS_R, U_NA ,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
             U_NA,     U_NA,     U_NA,    KC_ACL2,    U_NA,                            U_NA,    KC_WH_L,   KC_WH_D,     KC_WH_U,   KC_WH_R,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.

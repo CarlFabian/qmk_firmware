@@ -20,7 +20,6 @@
 
  // Layers
 enum layers {
-    _COLEMAK,
     _QWERTY,
     _NAV,
     _MOUSE,
@@ -46,9 +45,9 @@ enum layers {
 enum combo_events {
     ESC_COMBO,
     DEL_COMBO,
-    SWE_COLEMAK_COMBO1,
-    SWE_COLEMAK_COMBO2,
-    SWE_COLEMAK_COMBO3,
+    SWE_COMBO1,
+    SWE_COMBO2,
+    SWE_COMBO3,
     LPRN_COMBO,
     RPRN_COMBO,
     LCBR_COMBO,
@@ -68,7 +67,7 @@ uint16_t COMBO_LEN = COMBO_LENGTH;
 
 //Function combos
 const uint16_t PROGMEM esc_combo[] = { SE_Q, SE_W, COMBO_END }; // ESC
-const uint16_t PROGMEM del_combo[] = { SE_Y, SE_QUOT, COMBO_END };// DEL
+const uint16_t PROGMEM del_combo[] = { SE_O, SE_P, COMBO_END };// DEL
 const uint16_t PROGMEM caps_combo[] = { SE_C, SE_COMM, COMBO_END };// CAPSWORD
 
 //Symbol combos
@@ -80,22 +79,22 @@ const uint16_t PROGMEM lbrc_combo[] = { LALT_T(SE_R), SE_W, COMBO_END };// [
 const uint16_t PROGMEM rbrc_combo[] = { LALT_T(SE_I), SE_Y, COMBO_END };// ]
 const uint16_t PROGMEM labk_combo[] = { SE_G, SE_B, COMBO_END };// <
 const uint16_t PROGMEM rabk_combo[] = { SE_M, SE_J, COMBO_END };// >
-const uint16_t PROGMEM bsls_combo[] = { LSFT_T(SE_T), SE_F, COMBO_END };// backslash
-const uint16_t PROGMEM slsh_combo[] = { LSFT_T(SE_N), SE_U, COMBO_END };// /
-const uint16_t PROGMEM pipe_combo[] = { SE_G, SE_M, COMBO_END };// |
+const uint16_t PROGMEM bsls_combo[] = { LSFT_T(SE_F), SE_E, COMBO_END };// backslash
+const uint16_t PROGMEM slsh_combo[] = { LSFT_T(SE_J), SE_I, COMBO_END };// /
+const uint16_t PROGMEM pipe_combo[] = { SE_G, SE_H, COMBO_END };// |
 
 //Swedish letter combos
-const uint16_t PROGMEM sweColemak_combo1[] = { SE_W, SE_F, COMBO_END }; // Å
-const uint16_t PROGMEM sweColemak_combo2[] = { SE_F, SE_P, COMBO_END }; // Ä
-const uint16_t PROGMEM sweColemak_combo3[] = { SE_U, SE_Y, COMBO_END }; // Ö
+const uint16_t PROGMEM swe_combo1[] = { SE_W, SE_E, COMBO_END }; // Å
+const uint16_t PROGMEM swe_combo2[] = { SE_E, SE_R, COMBO_END }; // Ä
+const uint16_t PROGMEM swe_combo3[] = { SE_U, SE_I, COMBO_END }; // Ö
 
 
 combo_t key_combos[] = {
     COMBO(esc_combo, KC_ESC),
     COMBO(del_combo, KC_DEL),
-    COMBO(sweColemak_combo1, SE_ARNG),
-    COMBO(sweColemak_combo2, SE_ADIA),
-    COMBO(sweColemak_combo3, SE_ODIA),
+    COMBO(swe_combo1, SE_ARNG),
+    COMBO(swe_combo2, SE_ADIA),
+    COMBO(swe_combo3, SE_ODIA),
     COMBO(lprn_combo, SE_LPRN),
     COMBO(rprn_combo, SE_RPRN),
     COMBO(lcbr_combo, SE_LCBR),
@@ -113,26 +112,13 @@ combo_t key_combos[] = {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
- [_COLEMAK] = LAYOUT(
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-          SE_Q,    SE_W,    SE_F,       SE_P,      SE_B,                             SE_J,   SE_L,      SE_U,    SE_Y,    SE_QUOT,
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-     LGUI_T(SE_A),LALT_T(SE_R),LCTL_T(SE_S),LSFT_T(SE_T), SE_G,                 SE_M,   LSFT_T(SE_N),LCTL_T(SE_E),LALT_T(SE_I),LGUI_T(SE_O),
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-       LT(_BUTTON, SE_Z)  ,SE_X, SE_C, LT(_BRACKETS, SE_D), LT(_MEDIA, SE_V),      LT(_FUN, SE_K), SE_H,  SE_COMM, ALGR_T(SE_DOT),LT(_BUTTON,SE_MINS),
-     //,-----------------------------------------------------.                  ,-----------------------------------------------------.
-                           LT(_NAV, KC_SPC), LT(_MOUSE, KC_TAB),                 LT(_SYM, KC_ENT),  LT(_NUM, KC_BSPC)
-     //                          ----------------------------.                  ,--------------------------------
-                              ),
-
     [_QWERTY] = LAYOUT(
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                 SE_Q,    SE_W,    SE_E,    SE_R,    SE_T,                               SE_Y,    SE_U,    SE_I,  SE_O,  SE_P,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-        LGUI_T(SE_A),LALT_T(SE_S),LCTL_T(SE_D),LSFT_T(SE_F),SE_G,                SE_H, RSFT_T(SE_J),LCTL_T(SE_K),LALT_T(SE_L),LGUI_T(SE_QUOT),
+        LGUI_T(SE_A),LALT_T(SE_S),LCTL_T(SE_D),LSFT_T(SE_F),SE_G,                SE_H, LSFT_T(SE_J),LCTL_T(SE_K),LALT_T(SE_L),LGUI_T(SE_QUOT),
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-              LT(_BUTTON, SE_Z), ALGR_T(SE_X), KC_C, KC_V, LT(_MEDIA, SE_B),                       LT(_FUN, SE_N), SE_M, SE_COMM, ALGR_T(SE_DOT), LT(_BUTTON,SE_MINS),
+              LT(_BUTTON, SE_Z), ALGR_T(SE_X), KC_C, LT(_BRACKETS, KC_V), LT(_MEDIA, SE_B),                       LT(_FUN, SE_N), SE_M, SE_COMM, ALGR_T(SE_DOT), LT(_BUTTON,SE_MINS),
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                              LT(_NAV, KC_SPC), LT(_MOUSE, KC_TAB),                   LT(_SYM, KC_ENT), LT(_NUM, KC_BSPC)
         //                          ----------------------------.               ,--------------------------------
@@ -150,12 +136,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          //                          ----------------------------.              ,--------------------------------
                                   ),
 
-
     [_MOUSE] = LAYOUT(
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                 U_NA,     U_NA,    U_NA,    U_NA,    U_NA,                        U_UNDO,   U_PSTE,  U_COPY,   U_CUT, U_REDO,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-             KC_ACL0, KC_LALT, KC_LCTL, KC_LSFT,  KC_BTN3,                          U_NA,    KC_MS_L,   KC_MS_D,     KC_MS_U,   KC_MS_R,
+             KC_ACL0, KC_LALT, KC_LCTL, KC_LSFT,  KC_BTN3,                          KC_MS_L,    KC_MS_D,   KC_MS_U,     KC_MS_R,   U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
             U_NA,     U_NA,     U_NA,    KC_ACL2,    U_NA,                            U_NA,    KC_WH_L,   KC_WH_D,     KC_WH_U,   KC_WH_R,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
@@ -260,7 +245,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
     return true;
 }
 
-
 bool caps_word_press_user(uint16_t keycode) {
     switch (keycode) {
         // Keycodes that continue Caps Word, with shift applied.
@@ -285,21 +269,20 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 }
 
-
 // Tapping term for individual keys
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
     switch (keycode) {
-    case  LGUI_T(KC_A):
+    case  LGUI_T(SE_A):
         return TAPPING_TERM + 200;
-    case LGUI_T(KC_O):
+    case LGUI_T(SE_QUOT):
         return TAPPING_TERM + 200;
-    case LCTL_T(KC_S):
+    case LCTL_T(SE_D):
         return TAPPING_TERM + 50;
-    case LCTL_T(KC_E):
+    case LCTL_T(SE_K):
         return TAPPING_TERM + 50;
-    case LALT_T(KC_R):
+    case LALT_T(SE_R):
         return TAPPING_TERM + 50;
-    case LALT_T(KC_I):
+    case LALT_T(SE_L):
         return TAPPING_TERM + 50;
     default:
         return TAPPING_TERM;
