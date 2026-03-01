@@ -1,6 +1,8 @@
 # MCU name
 MCU = atmega32u4
 
+BOOTLOADER = caterina
+
 # Processor frequency.
 F_CPU = 16000000
 
