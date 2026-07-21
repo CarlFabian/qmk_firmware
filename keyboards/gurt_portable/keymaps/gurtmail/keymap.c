@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
         LGUI_T(SE_A),LALT_T(SE_S),LCTL_T(SE_D),LSFT_T(SE_F),SE_G,                SE_H, LSFT_T(SE_J),LCTL_T(SE_K),LALT_T(SE_L),LGUI_T(SE_QUOT),
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-              LT(_BUTTON, SE_Z), ALGR_T(SE_X), KC_C, KC_V, LT(_MEDIA, SE_B),                       LT(_FUN, SE_N), SE_M, SE_COMM, ALGR_T(SE_DOT), LT(_BUTTON,SE_MINS),
+              LT(_BUTTON, SE_Z), ALGR_T(SE_X), KC_C, LT(_BRACKETS, KC_V), LT(_MEDIA, SE_B),                       LT(_FUN, SE_N), SE_M, SE_COMM, ALGR_T(SE_DOT), LT(_BUTTON,SE_MINS),
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                              LT(_NAV, KC_SPC), LT(_MOUSE, KC_TAB),                   LT(_SYM, KC_ENT), LT(_NUM, KC_BSPC)
         //                          ----------------------------.               ,--------------------------------
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
                 U_NA,     U_NA,    U_NA,    U_NA,    U_NA,                        U_UNDO,   U_PSTE,  U_COPY,   U_CUT, U_REDO,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
-             KC_ACL0, KC_LALT, KC_LCTL, KC_LSFT,  KC_BTN3,                        KC_MS_L,   KC_MS_D,     KC_MS_U,   KC_MS_R, U_NA ,
+             KC_ACL0, KC_LALT, KC_LCTL, KC_LSFT,  KC_BTN3,                       KC_MS_L,   KC_MS_D,     KC_MS_U,   KC_MS_R,  U_NA,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
             U_NA,     U_NA,     U_NA,    KC_ACL2,    U_NA,                            U_NA,    KC_WH_L,   KC_WH_D,     KC_WH_U,   KC_WH_R,
         //,-----------------------------------------------------.               ,-----------------------------------------------------.
